@@ -17,7 +17,7 @@
 	In this way, job workers can be arbitrary commands, and queue semantics are
 	reduced down to basic unix concepts of exit status and signals.
 */
-package main
+package main // import "github.com/99designs/cmdstalk"
 
 import (
 	"github.com/99designs/cmdstalk/broker"

@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"strconv"
 	"syscall"
 )
 
@@ -57,11 +58,12 @@ func NewCommand(shellCmd string) (cmd *Cmd, out <-chan []byte, err error) {
 }
 
 // Start the process, write input to stdin, then close stdin.
-func (c *Cmd) StartWithStdin(input []byte) (err error) {
+func (c *Cmd) StartWithStdin(input []byte, jobID uint64) (err error) {
 	err = c.cmd.Start()
 	if err != nil {
 		return
 	}
+	_, err = c.stdinPipe.Write([]byte(strconv.FormatUint(jobID, 10) + " "))
 	_, err = c.stdinPipe.Write(input)
 	if err != nil {
 		return

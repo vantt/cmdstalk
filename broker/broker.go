@@ -168,7 +168,7 @@ func (b *Broker) executeJob(job bs.Job, shellCmd string) (result *JobResult, err
 		return
 	}
 
-	if err = cmd.StartWithStdin(job.Body); err != nil {
+	if err = cmd.StartWithStdin(job.Body, job.Id); err != nil {
 		return
 	}
 
